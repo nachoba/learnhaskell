@@ -25,7 +25,7 @@ tions, and  applications that constitute the rules of  the lambda  calculus  -at
 least, of a typed lambda calculus. Developments in logic,  mathematics, and com-
 puter science led to the discovery (or invention take you pick) of a typed lamb-
 da calculus called "System F" in the 1970s.  Haskell has improved on System F in
-some key wats,  such as by allowing general recursion  ( more on that in a later
+some key ways,  such as by allowing general recursion  ( more on that in a later
 chapter) and the Hindley-Milner system to permit type inference (more on that on
 this chapter), but the core logic is the same.
 So, why do we want types? Type systems in logic and mathematics have been desig-
@@ -42,7 +42,7 @@ are members of the Bool type. The inverse is that whenever the type Bool is  de-
 clared in a type signature, the compiler will expect one of those two values and
 only one of those two  values; you get a type error if you try to pass a  number
 where a Bool is expected. In Haskell,where typing is static, typechecking occurs
-at compile time. That means many errors will be caught before you tru to execute
+at compile time. That means many errors will be caught before you try to execute
 or run you program. The difference isn't always obvious because GHCi allows  you
 to typecheck things interactively, as you are writing them, as well  as  execute
 them if they typecheck. No type system can eliminate all possibilities for error
@@ -90,7 +90,7 @@ type a value is until the  type is either declared or the compiler  is forced to
 infer a specific type based on the function.For example, 13 may look like an in-
 teger to us,but that would only allow us to use it in computations that take in-
 tegers (and not in fractional division).   For that reason, the  compiler  gives
-in the type with the broadest applicability (most polymorphic) and says it is a
+in the type with the broadest  applicability (most polymorphic) and says it is a
 constrained polymorphic " Num a ⇒ a " value:
                  Prelude> :type 13
                  13 :: Num a => a
@@ -108,7 +108,7 @@ there aren't too many things it even could do.
 
 Understanding the function type
 --------------------------------------------------------------------------------
-The arrow, → , is the type constructor for functions in Haskell. It's baked into
+The arrow ( → ) is the type constructor for functions in Haskell.It's baked into
 the language, but syntactically it works in very much the same way as all the o-
 ther types you've seen so far. It's a type constructor, like Bool,  except the →
 type constructor takes arguments and has no data constructors:
@@ -124,7 +124,7 @@ put and one result-  in order to  be a function.  Unlike the tuple  constructor,
 though, the function type  has no data constructor.  The value that shows  up at
 term level is the function. Functions are values. As we've said, the hallmark of
 a function is that it can be applied, and the structure of the type demonstrates
-this.  The arrow is an infic operator that has two  parameters and associates to
+this.  The arrow is an infix operator that has two  parameters and associates to
 the right (although function application is left associative). The parameteriza-
 tion suggests that we'll apply the  function to some argument that will be bound
 to the first parameter, with the second parameter, b, representing the return of
