@@ -149,7 +149,7 @@ detail about those points later in the chapter. Let's look at another function:
                  Prelude> :type length
                  length :: [a] → Int
 The length function takes one argument that is a list -note the square brackets-
-and returns and Int result. The Int result in this case will be the number of i-
+and returns an  Int result. The Int result in this case will be the number of i-
 tems in the list.  The type of the  inhabitants of the list is left unspecified;
 this function does not care, in fact cannot care,what types of values are inside
 the list.
@@ -157,7 +157,7 @@ the list.
 Typeclass-constrained type variables
 --------------------------------------------------------------------------------
 Next, let's look at the types of some arithmetic functions.  You may recall that
-the act of wrapping an  infic operator in parentheses allows us to use the func-
+the act of wrapping an  infix operator in parentheses allows us to use the func-
 tion just like a normal prefix function, including being able to query the type:
                  Prelude> :type (+)
                  (+) :: Num a ⇒ a → a → a
