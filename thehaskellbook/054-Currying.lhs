@@ -139,8 +139,223 @@ result is equal to 1 - 11 - 10 = -20.
 
 Manual currying and uncurrying
 --------------------------------------------------------------------------------
+Haskell is curried by default,but you can uncurry functions.Uncurrying means un-
+nesting the functions and replacing the two functions  with a tuple of two vales
+(these would be the two values you want to use as arguments). If you uncurry (+)
+the type changes from Num a ⇒ a → a → a to Num a ⇒ (a,a) → a which better fits
+the description "takes two arguments,returns one result" than curried functions.
+Some older functional languages  default to using a product type  like tuples to 
+express multiple arguments.
 
+                 * Uncurried functions : One function, many arguments.
+                 * Curried functions   : Many functions, one argument apiece
 
+You can also de-sugar  the automatic currying yourself, by nesting the arguments
+with lambdas, though there's almost never a reason to do so. We'll use anonymous
+lambda syntax here to show you  some examples of uncurrying. You may want to re-
+view anonymous lambda syntax or try comparing these functions directly and thin-
+king of the backslash as lambda:
+
+> nonsense :: Bool -> Integer
+> nonsense True  = 805
+> nonsense False = 31337
+>
+> curriedFunction :: Integer -> Bool -> Integer
+> curriedFunction i b = i + (nonsense b)
+>
+> uncurriedFunction :: (Integer, Bool) -> Integer
+> uncurriedFunction (i,b) = i + (nonsense b)
+>
+> anonymous :: Integer -> Bool -> Integer
+> anonymous = \i b -> i + (nonsense b)
+>
+> anonNested :: Integer -> Bool -> Integer
+> anonNested = \i -> \b -> i + (nonsense b)
+
+When we test these functions in the REPL, we get:
+
+                 Prelude> curriedFunction 10 False
+                 31347
+                 Prelude> anonymous 10 False
+                 31347
+                 Prelude> anonNested 10 False
+                 31347
+                 
+They are all the same function,  all giving the same results.  In anonNested, we
+manually  nested the  anonymous lambda to  get a function that was  semantically
+identical to curriedFunction but did not leverage the  automatic currying.  This
+means functions that seem to accept multiple arguments such as with  "a → a → a"
+are higher-order  functions: they yield more function values as each argument is
+applied until there are no more (→) type constructors and it terminates in a non
+function value.  
+
+Currying and uncurrying existing functions
+--------------------------------------------------------------------------------
+It turns out,we can curry and uncurry functions with multiple parameters generi-
+cally without writing  new code for each one. Consider the following example for
+currying:
+
+                 Prelude> let curry f a b = f (a , b)
+                 Prelude> :t curry
+                 curry :: ((t1,t2) → t) → t1 → t2 → t
+                 Prelude> :t fst
+                 fst :: (a, b) → a
+                 Prelude> :t curry fst
+                 curry fst :: t → b → t
+                 Prelude> fst (1,2)
+                 1
+                 Prelude> curry fst 1 2
+                 1
+
+> curry' :: ((t1,t2) -> t) -> t1 -> t2 -> t
+> curry' f a b = f (a,b)
+
+Then for uncurrying:
+
+                 Prelude> let uncurry f (a,b) = f a b
+                 Prelude> :t uncurry
+                 uncurry :: (t1 → t2 → t) → (t1, t2) → t
+                 Prelude> :t (+)
+                 (+) :: Num a ⇒ a → a → a
+                 Prelude> (+) 1 2
+                 3
+                 Prelude> uncurry (+) (1,2)
+                 3
+
+> uncurry' :: (t1 -> t2 -> t) -> (t1,t2) -> t
+> uncurry' f (a,b) = f a b
+
+Currying  and uncurrying  functions of three or  more arguments automatically is
+quite possible, but tricker. We'll leave that be, but investigate on your own if
+you like.
+
+Sectioning
+--------------------------------------------------------------------------------
+We mentioned sectioning before, and now that we've  talked a bit more about cur-
+rying and partial application, it should be more clear what is happening  there.
+The term  sectioning  specifically refers to partial application of infix opera-
+tors, which has a special  syntax and allows you to choose  whether the argument
+you're partially applying the operator to is the first or second argument:
+     
+                 Prelude> let x = 5
+                 Prelude> let y = (2^)
+                 Prelude> let z = (^2)
+                 Prelude> y x
+                 32
+                 Prelude> z x
+                 25
+
+With commutative functions such as addition, the argument order does not matter.
+We will usually section addition as, for example, (+3), but later  when we start
+using partially applied functions a lot with maps and folds and so forth, you'll
+be able to see the difference that the argument  order can make with noncommuta-
+tive operators. This does not only work with arithmetic, though:
+
+                 Prelude> let celebrate = ( ++ " woot!")
+                 Prelude> celebrate "naptime"
+                 "naptime woot!"
+                 Prelude> celebrate "dogs"
+                 "dogs woot!"
+
+You can also use the syntax with  functions that are normally  prefix if you use
+the backticks to make  them infix ( note the .. is shorthand for  constructing a
+list of all elements between the first and last values given -go ahead and  play
+with this in your REPL):
+
+                 Prelude> elem 9 [1..10]
+                 True
+                 Prelude> 9 `elem` [1..10]
+                 True
+
+                 Prelude> let c = (`elem` [1..10])
+                 Prelude> c 9
+                 True
+
+                 Prelude> c 25
+                 False
+
+If you partially applied  elem in its usual prefix  form, then the argument  you
+apply it to would necessarily be the first argument:
+
+                 Prelude> let hasTen = elem 10
+                 Prelude> hasTen [1..9]
+                 False
+                 Prelude> hasTen [5..15]
+                 True
+
+Partial application is common enough in Haskell that, over time,  you'll develop
+an intuition for it. The sectioning syntax exists to allow some freedom in which
+argument of a binary operator you apply the function to.
+
+Exercises: Type Arguments
+--------------------------------------------------------------------------------
+Given a function and its type, tell  us what type results from  applying some of
+all the arguments.You can check your work in the REPL like this (using the first
+question as an example):
+
+> f :: a -> a -> a -> a
+> f = undefined
+>
+> x :: Char
+> x = undefined
+
+It turns out that you can check the types of things that aren't really implemen-
+ted yet, so long as you give GHCi and undefined to bind the signature to.
+1. If the type of f is "a → a → a → a", and the type of x is Char then the  type
+   of x is:
+   a) Char → Char → Char
+
+2. If the type of g is "a → b → c → b", then the type of: g 0 'c' "woot" is:
+
+> g :: a -> b -> c -> b
+> g = undefined
+
+   d) Char
+
+3. If the type of h is: "h :: (Num a, num b) ⇒ a → b → b", then the type of:
+   h 1.0 2 is:
+
+> h :: (Num a, Num b) => a -> b -> b
+> h = undefined
+
+   a) Num b ⇒ b 
+   Note that because the type variables a and b are different,the compiler must
+   assume that the types could be different.
+
+4. If the type of h is: "h :: (Num a, Num b) ⇒ a → b → b", then the type of:
+   h 1 (5.5 :: Double) is:
+
+> h' :: (Num a, Num b) => a -> b -> b
+> h' = undefined
+
+  c) Double
+
+5. If the type of "jackal :: (Ord a, Eq b) ⇒ a → b → a", then the type of:
+   jackal "keyboard" "has the word jackal in it"
+
+> jackal :: (Ord a, Eq b) => a -> b -> a
+> jackal = undefined
+
+   a) [Char]
+
+6. If the type of "jackal' :: (Ord a, Eq b) ⇒ a → b → a", then the type of:
+   jackal' "keyboard"
+
+   e) Eq b ⇒ b → [Char]
+
+7. If the type of "kessel :: (Ord a, Num b) ⇒ a → b → a", then the type of:
+   kessel 1 2 is:
+
+> kessel :: (Ord a, Num b) => a -> b -> a
+> kessel = undefined
+
+   f) (Num a, Ord a) ⇒ a
+
+8. Using kessel, what is the type of: "kessel 1 (2 :: Integer)"
+   e) (Num a, Ord a) ⇒ a
+
+9. Using kessel, what is the type of: "kessel (1 :: Integer) 2"
+   c) Integer
 
 
 
