@@ -117,5 +117,59 @@ of -10 + 6.3. Well, let's try it:
                  Prelude> :t (-10)
                  (-10) :: Num a ⇒ a
 
-page 141
+Numeric literals like (-10)  and  6.3  are polymorphic and stay so until given a
+more specific type. The "Num a ⇒ " or  "Fractional ⇒ " is a typeclass constraint
+and the a is the type variable in scope. In the type for the entire equation, we
+see that the compiler  inferred that it was working with Fractional numbers.  It
+had to, to accomodate the fractional number 6.3. Fine, but what about (-10)?. We
+see that the type of (-10) is given maximum polymorphism by only being an  inst-
+ance of the Num typeclass, which could be any type of number. We call this a po-
+lymorphic constant; (-10) is not a variable, of course,but the type that it ins-
+tantiates could be any numeric type,so its underlying representation is polymor-
+phic.It will have to resolve into a concrete type at some point in order to eva-
+luate.  We can force the compiler to be more specific about the types of numbers
+by declaring the type:
+
+                 Prelude> let x = 5 + 5
+                 Prelude> :t x
+                 x :: Num a ⇒ a
+                 Prelude> let x = 5 + 5 :: Int
+                 Prelude> :t x
+                 x :: Int
+
+In the first example, we did not specify a type for the numbers,so the type sig-
+nature defaulted to the broadest  interpretation,  but in the second version, we
+told the compiler to use the Int type.
+
+Working around constraints
+--------------------------------------------------------------------------------
+Previously,we've looked at a function called length that takes a list and counts
+the number of members and returns that number as an Int value.We saw in the last
+chapter that because Int is not a Fractional number, this function won't work:
+
+                 Prelude> 6 / length [1, 2, 3]
+                 No instance for (Fractional Int) arising from a use of `/`
+                 In the expression: 6 / length [1, 2, 3]
+                 In an equation for 'it' : it = 6 / length [1, 2, 3]
+
+Here the problem is length isn't polymorphic enough. Fractional includes several
+types of numbers, but Int is not one of them, and that is all length can return.
+Haskell does offer ways to work around this type of conflict,though.In this case
+we will use a function called fromIntegral that takes an integral value and for-
+ces it to implement the Num typeclass, rendering it polymorphic. Here's what the
+type signature looks like:
+
+                 Prelude> :t fromIntegral
+                 fromIntegral :: (Num b, Integral a) ⇒ a → b
+
+So, it takes a value, a of an Integral type and returns it as a value, b, of any
+Num type. Let's see how that works with our fractional division problem:
+
+                 Prelude> 6 / fromIntegral ( length [1, 2, 3] )
+                 2.0
+
+And now all is right with the world once again.
+
+
+
 
