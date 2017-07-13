@@ -140,7 +140,69 @@ think the new inferred type would be and then check your work in GHCi.
 
 Asserting types for declarations
 --------------------------------------------------------------------------------
+Most of the time, we want to declare our types,rather than relying on type infe-
+rence.  Adding type  signatures to your code  can provide guidance to you as you 
+write your functions.  It can also help the compiler  give you information about
+where your code is going wrong. As programs become longer and more complex, type
+signatures become even  more important,  as they help  you or other programmiers
+trying to use your code read it  and figure out what it is supposed to do.  This
+section will look at how to  declare types. We will start with some tivial exam-
+ples. You may remember the triple function we have seen before.  If we allow the
+compiler to infer the type, we end up with this:
 
+                 Prelude> let triple x = x * 3
+                 Prelude> :t triple
+                 triple :: Num a ⇒ a → a
 
+Here the triple function was made from the  (*)  function with has the following
+type:  "(*) :: Num a ⇒ a → a → a",  but we have already applied one of the argu-
+ments, which is the 3, so there is one less parameter in this type signature. It
+is still polymorphic because it can not tell what type 3 is yet. If, however, we
+want to ensure  that our inputs and result  may only by integer,  this is how we
+declare that:
 
+                 Prelude> let triple x = x * 3 :: Integer
+                 Prelude> :t triple
+                 triple :: Integer → Integer
 
+Note that the typeclass constraint is gone,because Integer implements Num,making
+that constraint redundant. Here's another example of a type declaration for  our
+triple function, this one more like what you would see in a source file:
+
+> triplex :: Integer -> Integer
+> triplex x = x * 3
+
+This is how most Haskell code you look at will be laid out,with separate top le-
+vel declarations  for types and functions.  Such top  level declarations  are in
+scope throughout the module. It is possible,  though uncommon, to declare  types
+locally with let and where clauses. Here's an example of assigning a type within
+a where clause: 
+
+> triples x = tripleIt x
+>   where
+>     tripleIt :: Integer -> Integer
+>     tripleIt y = y * 3
+
+The assertion in the where clause narrowed our type down from:
+                 Num a ⇒ a → a
+To:
+                 Integer → Integer
+
+GHCi will pick up and propagate type information for inference from applications
+of functions, sub-expressions, definitions -almost anywhere.  The type inference
+is strong with this one.  There are constraints on our ability to declare types.
+For example, if we try to make the (+) function return a String, we get an error
+message:
+
+                 Prelude> let x = 5 + 5 :: String
+
+                 No instance for (Num String) arising from a use of `+`
+                 In the expression: 5 + 5 :: String
+                 In an equation for 'x' : x = 5 + 5 :: String
+
+This function cannot accept arguments of type String. In this case it is overde-
+terminated, both because the  (+) function is limited to types  implementing the
+Num typeclass and also because we have already passed it two numeric literals as
+values.The numeric literals could be any of several numeric types under the hood
+but they can't be String because String does not implement the Num typeclass.
+-- 147
