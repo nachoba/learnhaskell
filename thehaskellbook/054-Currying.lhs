@@ -57,18 +57,18 @@ rameters into argument and result, since there can only be  one argument and one
 result per arrow. Since all the arrows have the same  precedence, the associati-
 vity does not change the precedence  or order of evaluation.  Remember,  when we
 have a lambda expression that  appears to have two arguments, they  are actually
-nested lambadas. Applying the expression to one argument returns a function that
+nested lambdas.  Applying the expression to one argument returns a function that
 awaits application to a second argument. After you apply it to a second argument
 you have a final result. You can nest more lambdas than two, of course,  but the
 process is the same: one result, even though that result may be a function awai-
 ting application to another argument.
 The type constructor for functions and the types we see above are the same thing
 but written in  Haskell. When there are "two arguments" in Haskell, we apply our
-to an argument, just like when we  apply a lambda expression to an argument, and
-then return a result that is a function and  needs to be applied to a second ar-
-gument.
+function to an argument,just like when we  apply a lambda expression to an argu-
+ment, and then return a result that is a function and  needs to be applied to  a
+second argument.
 Explicit parenthesization, as when an input parameter is itself a function (such
-as in map, above), may  used to  indicate order of evaluation, but the  implicit
+as in map, above), may be used to indicate order of evaluation, but the implicit
 associativity of the function type doesn't mean the inner or final set of paren-
 theses, i.e., the result type, evaluates first. Application is evaluation: in o-
 ther words,the only way to evaluate anything is by applying functions, and func-
@@ -142,7 +142,7 @@ Manual currying and uncurrying
 Haskell is curried by default,but you can uncurry functions.Uncurrying means un-
 nesting the functions and replacing the two functions  with a tuple of two vales
 (these would be the two values you want to use as arguments). If you uncurry (+)
-the type changes from Num a ⇒ a → a → a to Num a ⇒ (a,a) → a which better fits
+the type changes from "Num a ⇒ a → a → a" to Num a ⇒ (a,a) → a which better fits
 the description "takes two arguments,returns one result" than curried functions.
 Some older functional languages  default to using a product type  like tuples to 
 express multiple arguments.
