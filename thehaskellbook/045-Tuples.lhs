@@ -42,6 +42,7 @@ But if we try to apply it to only one argument:
 
 Prelude> (,) 9
 <interactive>:21:1: error:
+
     * No instance for (Show (b0 -> (a0, b0)))
         arising from a use of `print'
         (maybe you haven't applied a function to enough arguments?)
