@@ -1,0 +1,198 @@
+Easing Haskell's Intimidating Glare
+-----------------------------------
+All of my previous articles have discussed basic language features and concepts
+in Haskell.   My hope has been to provide new Haskellers with suitable starting
+material to help them get started. Even just as a language, Haskell is complex. 
+There are many technical challenges and paradigm shifts one has to overcome  to
+learn it. This is especially true for those coming from imperative languages.
+
+However, this article will focus on something equally important. It's no secret
+that most people consider Haskell not just a difficult language  to learn tech-
+nically, but an intimidating language.  It has undoubted psychological hurdles. 
+People seem to give up on Haskell at a higher rate than most other languages.By 
+naming these problems, we can overcome them.
+
+An Academic Language
+People have long considered Haskell primarily as a research language. It builds
+on the lambda calculus, possibly the simplest, purest programming language.This  
+gives it a host of connections to cool concepts in abstract mathematics, prima- 
+rily the province of professors and PhD. students. The connection is so elegant
+many mathematical ideas can be well represented in Haskell.
+
+But this connection has a price in accessibility.Important Haskell concepts in-
+clude functors, monads, categories, etc. These are cool, but few without a math
+degree have any intuition for what the terms mean.  Compare these to terms from 
+other languages: class, iterator, loop, template.These terms are a lot more in-
+tuitive,so the languages using them have an automatic advantage in accessibili-
+ty.  Aside from this terminology point though, the great academic interest is a
+good thing, not a bad thing.However, on the production side of things, the too-
+ling has not been sufficient.  It was simply too difficult to maintain a large-
+scale Haskell project.  As a result,  companies had little incentive to use it. 
+This meant there was little to no balance of the academic influence.
+
+Knowledge Distribution
+The net result of Haskell's academic primacy is a skewed knowledge base.The na-
+ture of academia is relatively few people spend a large amount of time on a re-
+latively small set of problems. Consider another academic field, like virology. 
+You have some experts who understand viruses at an extremely high level,and the 
+rest of us know quite little. There are no hobbyist virologists. Unfortunately, 
+this kind of distribution is not conducive to introducing new people to a topic
+
+Naturally, people have to learn from those who know more than they do.  But the 
+truth is they don't want their teachers to be too much better. It helps tremen-
+dously to learn from someone who was in your shoes not too long ago.  They will 
+more likely remember the pitfalls and frustrations they encountered early on,so 
+they'll be able to help you avoid them. But when the distribution skews towards
+the extreme, there is no middle class. There are fewer people who can optimally 
+teach new learners.In addition to not remembering old mistakes, experts tend to 
+use overly complicated terminology.  New folks may feel intimidated by this and 
+despair.
+
+Turning the Tide of Production
+The lack  of production  work mentioned above contributes substantially to this
+divide.Many other languages, like C++,have strong academic followings.But since
+so many companies use C++ in production, it does not face the knowledge distri-
+bution problem  Haskell does.  Companies using  C++ have no choice but to train 
+people to use the language.  Many of these people stick with  the language long 
+enough to train  the next generation.  This creates a more normal looking know-
+ledge distribution curve.
+The good news  for Haskell is there have been major tooling improvements in the
+last few years. This has brought about a renaissance for the language.More com-
+panies are starting to use it in production.  More meetups are  happening; more
+people are writing libraries for the most crucial tasks.If this trend continues
+Haskell will hopefully reach a tipping point, normalizing the knowledge distri-
+bution curve.
+
+The Key Insight
+If you are someone who is interested in learning Haskell,or who has tried lear-
+ning Haskell in the past, there is one key thing to know.While the abstract ma-
+thematics is cool, understanding it is mostly unnecessary.Monads are essential, 
+there is no denying.  But category theory is overkill  for most day-to-day pro-
+blems you'll solve.  The dozens of language extensions might seem intimidating, 
+but you can pick them up one-by-one as you go.
+At the last Haskell eXchange, Don Stewart from Standard Chartered  gave a  talk 
+about the company's use of Haskell.  He explained they rarely use anything out-
+side of vanilla Haskell constructs*.  They just don't need to. Anything you can 
+do with, say, lenses, you can accomplish without them.
+Haskell is different from most other programming languages.It constrains you in 
+ways those languages do not.   But the constraints are not nearly as binding as 
+they seem.You can't use for loops. So use recursion. You can't re-assign varia-
+bles. So create new names for expressions.  You just have take it one step at a 
+time.
+
+Taking Action
+If this has inspired you to get started with Haskell,  check this  checklist to
+learn the tools you need to get started.
+If you are already  familiar with the basics and want to take the next step up, 
+you should take a look at our workbook. You'll learn about recursion and get to 
+take a shot at 10 practice problems to test your skills!
+
+Note
+* At least with respect to their normal Haskell code.  Some of their code is in
+  a proprietary language of theirs called Mu, which is built on Haskell but 
+  obviously different.
+
+Learning to Learn Haskell
+-------------------------
+A month or two ago,we discussed the Intimidation Factor of Haskell.That article 
+focused on why people see Haskell as challenging and why they shouldn't.  Today 
+we'll pick up on some of the threads of that conversation.We'll explore the how 
+of learning Haskell (and other things).  We will examine  some general ideas on 
+learning and discuss how to apply them to programming.
+
+Warren Buffett and Compound Interest
+There is an oft-repeated line on productivity about Warren Buffett.  He says he
+reads at least 500 pages a day,and this is one of the major keys to his success
+Knowledge, according to Buffett,is like compound interest.The more you acquire,
+the more it accumulates and is able to build on itself as you make more connec-
+tions.
+The why of this statement is fantastic. I have found it rings true as I explore
+different topics. I have seen how my knowledge has begun building on itself.And
+yet,the how is often misunderstood and misinterpreted.This leads people to have
+a difficult time implementing Buffett's principle.
+The simple fact is that the average person does not have time to read 500 pages
+a day.First, if he reads so much,Warren Buffett is likely an accomplished speed
+reader, so he needs less time.  Second, he is in far  more control  of his time
+than most other people due to his wealth. In my current job as a software engi-
+neer, I cannot spend a full 80% of my working  day on reading  and thinking.  I
+would have  some  very  unhappy teammates  and project  managers to deal  with.
+The average person will see  this advice and decide to start reading a ton out-
+side of working hours. They might even succeed in hitting 500 pages a day...for
+a couple days. Then of course life gets in the way. They won't have time over a
+few days to do it, and they'll drop the habit.
+
+A Better Application
+So how do we achieve the compound knowledge effect?  The real misinterpretation
+I find about this advice is this.  The key factor in compound interest is time,
+not average investment.Making small, repeated contributions will have major re-
+wards later on.  Of course, big, repeated contributions will have major rewards
+as well. But if the investment causes us to give up the habit, we will be worse
+off over time.
+
+Once we accept this idea,we can apply it to other topics,including Haskell pro-
+graming.We might be tempted to devote an hour every day to learning some parti-
+cular Haskell concept.   But this is often unsustainable.  It is far  easier to
+devote at least  15 minutes a day,  or even 10 minutes a day.  This will ensure
+we're going to continue learning. On any given day, it can be hard to carve out
+a full hour for something.  Your schedule might not allow that contiguous block
+of time. But you should always be able to find a 15 minute block.This will dra-
+matically lower the barrier of starting each day, so you will be more likely to
+succeed.
+
+In keeping with the compound interest principle, progress is momentum based. By
+committing to 15 minutes a day on a couple different projects,  I've made a ton
+of progress.I've accomplished far more than if I had tried to carve out an hour
+here and there.  I was only able to start  writing online because I  devoted 20
+minutes a day to writing.Once I stuck with that for a month,I was in good shape.
+
+Josh Waitzkin and Confronting Difficulties
+Another  of the most important ideas about learning I've encountered comes from
+The Art of Learning,  by Josh Waitzkin. He is a former chess prodigy and grand-
+master turned world-champion martial artist. He describes a story that was all-
+too  familiar to me as a fellow  childhood chess player. He saw many young pla-
+yers with  a lot of potential.  They would beat everyone around  them at  their
+school or local chess club.  But they never brought themselves to face stronger
+opposition.As a result, they ended up not improving, and ultimately quit chess.
+They were so invested in the idea of  winning every game that  losing to anyone
+was too much of a blow to their pride.
+If we focus on our egos too much, we'll be afraid of appearing weak. The causes
+us to avoid confronting the areas of our knowledge where we actually are weak. 
+These are exactly the areas we need to strengthen! If we never address these a-
+reas, we'll never improve, and we won't be able to beat big challenges.
+
+Confronting Haskell
+So how does this affect learning Haskell, or programming in general? After all,
+programming is not a competitive game.  And yet, there are still  ways in which
+this mentality can hurt us.  We might stay away from a particular topic because
+it seems difficult. We're concerned that we'll try to learn it and fail. And we
+worry this failure will  reveal how peculiarly unfit we are to be Haskell deve-
+lopers. Worse, we are afraid to ask other programmers for help.    What if they
+look down on us for our lack of knowledge?
+I have three main responses to this. First, I'll repeat a note from the intimi-
+dation article.  A topic is infinitely more intimidating when you  know nothing
+about it.  Once you know even the most basic definitions, you have a reasonable
+idea of what you're missing. Get as basic an idea of it as you can and write it
+down in plain English. You might not know the subject. But it will no longer be
+an "unknown-unknown".
+
+Second, who cares if you put in effort toward learning something and fail?  Try
+again!  It can take several iterations of learning on a single topic before you
+understand it. It took me at least three tries before I understood monads.
+
+Finally,  the very people we are afraid to admit our weaknesses to are the same
+people who can actually help us overcome these weakness.  Better yet,  they are
+often more than happy to do so!  This involves getting over our primal fears of
+appearing inferior and being rejected by others.  This is difficult but not im-
+possible.
+
+Conclusion
+So remember the key lessons here. Focus a little bit at first.  Don't commit to
+learning more than 15 minutes a day,and pick a project with clear progress.Keep
+momentum going by working at something every day.Don't worry if a concept seems
+difficult. It's OK to take several tries at learning something.  And above all,
+never be afraid to ask for help.
+So what are you waiting for? If you've always wanted to learn Haskell but never
+have, download our Getting Started Checklist to start your journey!
+Have you done a little Haskell, but still don't understand some functional pro-
+gramming concepts?  Check out our free Recursion Workbook to learn about recur-
+sion, higher order functions, and try some practice problems!
